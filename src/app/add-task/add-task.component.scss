@@ -1,13 +1,12 @@
 // Header Setup with background image
 .headerUI {
   background-image: url('../../assets/bg.png');
-  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 20px;
   display: flex;
   align-items: center;
-   & .header-title-container {
+    & .header-title-container {
       flex: 1;
       text-align: center;
       ion-text {
@@ -18,11 +17,9 @@
   
 }
 
-
 ion-content{
   --background: #F1F5F9;
 }
-
 
 .form-card {
   box-shadow: none;
@@ -36,12 +33,11 @@ ion-content{
 // Generic Form Inputs Formatting
 .input-group {
   margin-bottom: 20px;
-
   & .form-label {
     display: block;
     color: #444444;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 3px;
   }
 }
@@ -91,17 +87,29 @@ ion-content{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color:var(--background);
+    padding: 12px;
     margin: 0;
     .input-icon {
       color: #a0aec0;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
   }
 }
+/* Target the inner native container */
+ion-datetime-button::part(native) {
+  background: var(--background);
+  color: var(--color);
+}
+
 // Footer Save button colors
-.footer-btn {
-  --background: #004376;
-  --background-hover: #003861;
-  --background-activated: #002f52;
+.footer-btn{
+  --background: #4A3780;
   --color: white;
+  & ion-text{
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+  }
 }

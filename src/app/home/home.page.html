@@ -33,7 +33,7 @@
                 </div>
                 <ion-label>{{item?.label}}</ion-label>
               </ion-item>
-              <ion-checkbox color="tertiary" slot="end"></ion-checkbox>
+              <ion-checkbox [checked]="false" color="tertiary" slot="end"></ion-checkbox>
             </div>
           }
         </ion-list>
@@ -57,9 +57,9 @@
                   class="ion-padding loop-circle-icon"
                   ></ion-icon>
                 </div>
-                <ion-label>Item</ion-label>
+                <ion-label>first Item</ion-label>
               </ion-item>
-              <ion-checkbox color="tertiary" slot="end"></ion-checkbox>
+              <ion-checkbox [checked]="true" color="tertiary" slot="end"></ion-checkbox>
             </div>
           }
         </ion-list>

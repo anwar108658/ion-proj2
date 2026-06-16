@@ -21,7 +21,7 @@ export class AddTaskComponent  implements OnInit {
     date: new FormControl(null,[]),
     time: new FormControl(null,[]),
     taskDetail: new FormControl('',[]),
-    isActive:new FormControl(true,[])
+    isCompleted:new FormControl(false,[])
   })
   
   categoryList = [
