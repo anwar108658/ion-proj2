@@ -1,18 +1,17 @@
 <!-- Header with texture background -->
 <ion-header class="ion-no-border">
   <div class="headerUI">
-    <div class="header-top">
-      <ion-button routerLink="/home" color="light" shape="round" class="close-btn">
-        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
-      </ion-button>
-      <div class="header-title-container">
-        <ion-text color="light">
-          <h2>Add New Task</h2>
-        </ion-text>
-      </div>
+    <ion-button routerLink="/home" color="light" shape="round" class="close-btn">
+      <ion-icon  class="ion-padding" slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+    <div class="header-title-container">
+      <ion-text color="light">
+        Add New Task
+      </ion-text>
     </div>
   </div>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <!-- Form Content Area -->
   <form [formGroup]="taskForm" class="ion-padding main-content">
@@ -21,19 +20,19 @@
         
         <!-- Task Title Input -->
         <div class="input-group">
-          <ion-label position="stacked" class="form-label">Task Title</ion-label>
+          <ion-label class="form-label">Task Title</ion-label>
           <ion-item lines="none" class="custom-input-item">
             <ion-input formControlName="task" placeholder="Pick up" value="Pick up"></ion-input>
           </ion-item>
         </div>
 
         <!-- Category Selector -->
-        <div class="input-group">
+        <div class="input-group category-group-container">
           <ion-label class="form-label">Category</ion-label>
           <div class="category-group">
             @for (item of categoryList; track $index) {
-              <ion-button (click)="getCategoryVal(item.iconName)" fill="clear" [class]="item.class">
-                <ion-icon [name]="item.iconName"></ion-icon>
+              <ion-button size="large" shape="round" (click)="getCategoryVal(item.iconName)" fill="clear" [color]="item.color" class="ion-no-border">
+                <ion-icon slot="icon-only" [name]="item.iconName" ></ion-icon>
               </ion-button>
             }
           </div>
@@ -69,7 +68,7 @@
 
         <!-- Notes Textarea -->
         <div class="input-group">
-          <ion-label position="stacked" class="form-label">Notes</ion-label>
+          <ion-label  class="form-label">Notes</ion-label>
           <ion-item lines="none" class="custom-input-item textarea-item">
             <ion-textarea formControlName="taskDetail" placeholder="Add your notes here" rows="5"></ion-textarea>
           </ion-item>
@@ -79,7 +78,6 @@
   </form>
 </ion-content>
 
-<!-- Save Button Footer -->
 <ion-footer class="ion-no-border ion-padding">
   <ion-button (click)="onSubmit()" expand="block" class="footer-btn" shape="round" size="large">Save</ion-button>
 </ion-footer>

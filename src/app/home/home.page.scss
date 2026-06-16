@@ -42,6 +42,11 @@ ion-content{
   z-index: 10;
   margin-bottom: 1.4rem;
 }
+.section-title{
+  letter-spacing: normal;
+  color: #4A3780;
+  font-weight: 800 !important;
+}
 .m-card-2{
   margin-top: 1.4rem;
 }
@@ -73,6 +78,12 @@ ion-content{
 .footer-btn{
   --background: #4A3780;
   --color: white;
+  & ion-text{
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+  }
 }
 
 ion-icon.loop-circle-icon {
@@ -82,9 +93,7 @@ ion-icon.loop-circle-icon {
   border-radius: 50%;
   display: inline-flex;
   margin-right: 10px;
-
   background-color: currentColor;
-
   background-image: linear-gradient(
     rgba(255, 255, 255, 0.897), 
   );

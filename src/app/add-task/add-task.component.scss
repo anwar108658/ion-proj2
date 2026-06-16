@@ -5,52 +5,31 @@
   background-repeat: no-repeat;
   background-size: cover;
   padding: 20px;
-  margin: 5px !important;
-  border-radius: 15px;
-
-  .header-top {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    margin-top: 10px;
-
-    .close-btn {
-      --background: rgba(255, 255, 255, 0.2);
-      --color: white;
-      margin: 0;
-      position: absolute;
-      left: 0;
-      z-index: 11;
-    }
-
-    .header-title-container {
+  display: flex;
+  align-items: center;
+   & .header-title-container {
       flex: 1;
       text-align: center;
-      h2 {
-        margin: 0;
-        font-weight: 600;
-        font-size: 1.3rem;
+      ion-text {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
       }
     }
-  }
+  
 }
 
-// Overlapping Form Container
-.main-content {
-  // margin-top: -90px;
-  z-index: 10;
-  position: relative;
+
+ion-content{
+  --background: #F1F5F9;
 }
+
 
 .form-card {
-  margin: 0;
-  border-radius: 20px;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.06);
-  --background: white;
-
-  ion-card-content {
-    padding: 20px 16px;
+  box-shadow: none;
+  --background: transparent;
+  border: 0;
+  & ion-card-content{
+  padding: 0;
   }
 }
 
@@ -58,13 +37,19 @@
 .input-group {
   margin-bottom: 20px;
 
-  .form-label {
+  & .form-label {
     display: block;
     color: #444444;
     font-weight: 600;
-    font-size: 1.2rem;
-    margin-bottom: 8px;
+    font-size: 1.1rem;
+    margin-bottom: 3px;
   }
+}
+
+.category-group-container{
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 // Stylized Native Item Container for inputs
@@ -78,7 +63,7 @@
   margin-bottom: 0;
 
   ion-input {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     color: #333;
   }
   
@@ -93,32 +78,6 @@
 .category-group {
   display: flex;
   gap: 12px;
-
-  .cat-btn {
-    --border-radius: 10px;
-    --padding-top: 10px;
-    --padding-bottom: 10px;
-    --padding-start: 12px;
-    --padding-end: 12px;
-    margin: 0;
-    font-size: 1.3rem;
-    height: 44px;
-    width: 44px;
-
-    // Specific category backgrounds from design image
-    &.selected-blue {
-      --background: #eef2ff;
-      --color: #3b82f6;
-    }
-    &.selected-purple {
-      --background: #f5f3ff;
-      --color: #8b5cf6;
-    }
-    &.selected-yellow {
-      --background: #fefce8;
-      --color: #eab308;
-    }
-  }
 }
 
 // Date-Time Layout Configuration

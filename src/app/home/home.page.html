@@ -39,7 +39,7 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
-    <ion-text class="ion-padding">
+    <ion-text class="ion-padding section-title">
       Completed
     </ion-text>
     <ion-card class="m-card-2 m-card">
@@ -47,19 +47,19 @@
         <ion-list lines="none">
           @for (item of items; track $index) {
             <div class="list-item">
-              <ion-item>
+              <ion-item disabled>
                 <div style="display: flex;align-items: center;">
                   <ion-icon
                   size="large" 
                   slot="icon-only"
                   [name]="item.iconName"
-                  [color]="item"
+                  [color]="item.color"
                   class="ion-padding loop-circle-icon"
                   ></ion-icon>
                 </div>
                 <ion-label>Item</ion-label>
               </ion-item>
-              <ion-checkbox slot="end"></ion-checkbox>
+              <ion-checkbox color="tertiary" slot="end"></ion-checkbox>
             </div>
           }
         </ion-list>
@@ -70,5 +70,7 @@
 </ion-content>
 
 <ion-footer class="ion-no-border ion-padding">
-  <ion-button routerLink="/task" expand="block" class="footer-btn" shape="round" size="large">Add New Task</ion-button>
+  <ion-button routerLink="/task" expand="block" class="footer-btn" shape="round" size="large">
+    <ion-text color="light">Add New Task</ion-text>
+  </ion-button>
 </ion-footer>

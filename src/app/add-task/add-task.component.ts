@@ -25,9 +25,9 @@ export class AddTaskComponent  implements OnInit {
   })
   
   categoryList = [
-    {id:3,label:"x",iconName:"document-text-outline",color:"secondary",class:"cat-btn selected-blue"},
-    {id:2,label:"y",iconName:"trophy-outline",color:"warning",class:"cat-btn selected-purple"},
-    {id:1,label:"z",iconName:"calendar-outline",color:"tertiary",class:"cat-btn selected-yellow"},
+    {id:3,label:"x",iconName:"document-text-outline",color:"secondary"},
+    {id:2,label:"y",iconName:"trophy-outline",color:"warning"},
+    {id:1,label:"z",iconName:"calendar-outline",color:"tertiary"},
   ]
 
   getCategoryVal(val:string){
