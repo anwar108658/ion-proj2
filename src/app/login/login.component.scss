@@ -1,0 +1,34 @@
+ion-toolbar {
+  --padding-start: 16px;
+}
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+ion-title{
+  font-size: 1.8rem;
+  font-weight: 700;
+  --color:#004376;
+}
+ion-input{
+  width: 300px;
+}
+ion-button{
+  margin-top: 10px !important;
+} 
+.content{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-btn {
+  --background: #004376;
+  --background-hover: #003861;
+  --background-activated: #002f52;
+  --color: white;
+}

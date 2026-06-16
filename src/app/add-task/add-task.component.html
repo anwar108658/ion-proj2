@@ -1,0 +1,85 @@
+<!-- Header with texture background -->
+<ion-header class="ion-no-border">
+  <div class="headerUI">
+    <div class="header-top">
+      <ion-button routerLink="/home" color="light" shape="round" class="close-btn">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <div class="header-title-container">
+        <ion-text color="light">
+          <h2>Add New Task</h2>
+        </ion-text>
+      </div>
+    </div>
+  </div>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <!-- Form Content Area -->
+  <form [formGroup]="taskForm" class="ion-padding main-content">
+    <ion-card class="form-card">
+      <ion-card-content>
+        
+        <!-- Task Title Input -->
+        <div class="input-group">
+          <ion-label position="stacked" class="form-label">Task Title</ion-label>
+          <ion-item lines="none" class="custom-input-item">
+            <ion-input formControlName="task" placeholder="Pick up" value="Pick up"></ion-input>
+          </ion-item>
+        </div>
+
+        <!-- Category Selector -->
+        <div class="input-group">
+          <ion-label class="form-label">Category</ion-label>
+          <div class="category-group">
+            @for (item of categoryList; track $index) {
+              <ion-button (click)="getCategoryVal(item.iconName)" fill="clear" [class]="item.class">
+                <ion-icon [name]="item.iconName"></ion-icon>
+              </ion-button>
+            }
+          </div>
+        </div>
+
+        <!-- When (Date & Time) Picker -->
+        <div class="input-group">
+          <ion-label class="form-label">When</ion-label>
+          <div class="datetime-row">
+            <!-- Date Picker Item -->
+            <ion-item lines="none" class="custom-input-item datetime-item">
+              <ion-datetime-button  datetime="date-picker"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime formControlName="date" id="date-picker" presentation="date"></ion-datetime>
+                </ng-template>
+              </ion-modal>
+              <ion-icon name="calendar-clear-outline" slot="end" class="input-icon"></ion-icon>
+            </ion-item>
+
+            <!-- Time Picker Item -->
+            <ion-item lines="none" class="custom-input-item datetime-item">
+              <ion-datetime-button datetime="time-picker"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime formControlName="time" id="time-picker" presentation="time"></ion-datetime>
+                </ng-template>
+              </ion-modal>
+              <ion-icon name="time-outline" slot="end" class="input-icon"></ion-icon>
+            </ion-item>
+          </div>
+        </div>
+
+        <!-- Notes Textarea -->
+        <div class="input-group">
+          <ion-label position="stacked" class="form-label">Notes</ion-label>
+          <ion-item lines="none" class="custom-input-item textarea-item">
+            <ion-textarea formControlName="taskDetail" placeholder="Add your notes here" rows="5"></ion-textarea>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>
+
+<!-- Save Button Footer -->
+<ion-footer class="ion-no-border ion-padding">
+  <ion-button (click)="onSubmit()" expand="block" class="footer-btn" shape="round" size="large">Save</ion-button>
+</ion-footer>

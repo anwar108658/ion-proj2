@@ -1,0 +1,30 @@
+<ion-content [fullscreen]="true" >
+  <div class="login-content">
+    <form class="content">
+      <ion-img src="../assets/userLogin.png" style="width: 150px;"></ion-img>
+      <ion-title class="title">Sign In</ion-title>
+      <ion-list lines="inset">
+        <ion-item>
+          <ion-input  label="Enter Email :"  placeholder="abc@gmail.com"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="password" errorText="Required" type="password" placeholder="*********" label="Password :" >
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
+        <ion-item></ion-item>
+        <ion-button routerLink="/home" class="footer-btn" expand="full" shape="round">Log In</ion-button>
+        <ion-button  expand="full" shape="round" color="medium">
+          <ion-icon slot="start" name="logo-google"></ion-icon>
+          Log In With Google
+        </ion-button>
+        <ion-item>
+          <ion-text color="secondary">
+            you don't have any account yet ?
+          </ion-text>
+        </ion-item>
+        <ion-button routerLink="/signup" type="button" color="tertiary" expand="full" shape="round">Registered Acount</ion-button>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

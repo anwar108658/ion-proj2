@@ -1,0 +1,7 @@
+{
+  "name": "todoUI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
