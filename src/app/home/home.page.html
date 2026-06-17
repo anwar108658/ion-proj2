@@ -19,25 +19,27 @@
     <ion-card class="m-card-1 m-card">
       <ion-card-content class="ion-no-padding">
         <ion-list [scrollTop]="true"  lines="none">
-          @for (item of taskS.taskData(); track $index) {
+          @for (item of pendingTasks(); track $index) {
             <div class="list-item">
               <ion-item expand="block">
-                <div style="display: flex;align-items: center;">
-                  <ion-icon 
-                  size="large" 
-                  slot="icon-only" 
-                  [name]="item.category.cat"
-                  [color]="item.category.color"
-                  class="loop-circle-icon"
-                  ></ion-icon>
-                </div>
-                <div>
-                  <ion-label>{{item?.task}}</ion-label>
-                  <p>{{item.time | date:'shortTime'}}</p>
-                </div>
-              </ion-item>
-              <ion-checkbox [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox>
+                  <div style="display: flex;align-items: center;">
+                    <ion-icon
+                    size="large" 
+                    slot="icon-only" 
+                    [name]="item.category.cat"
+                    [color]="item.category.color"
+                    class="loop-circle-icon"
+                    ></ion-icon>
+                  </div>
+                  <div>
+                    <ion-label>{{item?.task}}</ion-label>
+                    <p>{{item.time | date:'shortTime'}}</p>
+                  </div>
+                </ion-item>
+                <ion-checkbox (click)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox>
             </div>
+          }@empty {
+            <ion-text color="success" style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">No pending tasks found.</ion-text>
           }
         </ion-list>
       </ion-card-content>
@@ -48,25 +50,27 @@
     <ion-card class="m-card-2 m-card">
       <ion-card-content>
         <ion-list lines="none">
-          @for (item of taskS.taskData(); track $index) {
-            <div class="list-item">
-              <ion-item disabled>
-                <div style="display: flex;align-items: center;">
-                  <ion-icon
-                  size="large" 
-                  slot="icon-only"
-                  [name]="item.category.cat"
-                  [color]="item.category.color"
-                  class="ion-padding loop-circle-icon"
-                  ></ion-icon>
-                </div>
-                <div>
-                  <ion-label>{{item?.task}}</ion-label>
-                  <p>{{item.time | date:'shortTime'}}</p>
-                </div>
-              </ion-item>
-              <ion-checkbox [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox>
-            </div>
+          @for (item of completedTasks(); track $index) {
+              <div class="list-item">
+                <ion-item disabled>
+                  <div style="display: flex;align-items: center;">
+                    <ion-icon
+                    size="large" 
+                    slot="icon-only"
+                    [name]="item.category.cat"
+                    [color]="item.category.color"
+                    class="ion-padding loop-circle-icon"
+                    ></ion-icon>
+                  </div>
+                  <div>
+                    <ion-label>{{item?.task}}</ion-label>
+                    <p>{{item.time | date:'shortTime'}}</p>
+                  </div>
+                </ion-item>
+                <ion-checkbox (click)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox>
+              </div>
+          } @empty {
+             <ion-text color="warning" style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">the task is not completed yet</ion-text>
           }
         </ion-list>
       </ion-card-content>

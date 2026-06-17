@@ -50,6 +50,8 @@ ion-content{
   margin-top: 1.4rem;
 }
 .m-card{
+  height: 264px;
+  overflow: scroll;
   border-radius: 17px;
   box-shadow: none;
   & ion-card-content{

@@ -37,7 +37,10 @@ export class AddTaskComponent  implements OnInit {
 
   onSubmit(){
     console.log(this.taskForm.value)
-    this.taskS.taskData.update(val => [...val,this.taskForm.value as any])
+    const task = this.taskS.taskData().some(p => p.task === this.taskForm.value.task)
+    if (!task) {
+      this.taskS.taskData.update(val => [...val,this.taskForm.value as any])
+    }
   }
 
 }
