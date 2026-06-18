@@ -3,18 +3,19 @@ import { RouterModule } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonModal, IonIcon, IonFabButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonList, IonCardContent, IonItem, IonThumbnail, IonLabel, IonFooter, IonCheckbox } from '@ionic/angular/standalone';
 import { Task } from '../service/task/task';
 import { DatePipe } from '@angular/common';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [DatePipe,RouterModule,IonHeader, IonContent, IonButton, IonIcon, IonText, IonCard, IonList, IonCardContent, IonItem, IonLabel, IonFooter, IonCheckbox],
+  imports: [DatePipe,RouterModule,IonHeader, IonContent, IonButton, IonIcon, IonText, IonCard, IonList, IonCardContent, IonItem, IonLabel, IonFooter],
 })
 export class HomePage {
   constructor() {}
   public taskS = inject(Task)
 
-  toggleCompletedStatus(id:string){
+ async toggleCompletedStatus(id:string){
     this.taskS.taskData.update(tasks =>
       tasks.map(task =>
         task.task === id
@@ -22,6 +23,11 @@ export class HomePage {
           : task
       )
     );
+
+    await Preferences.set({
+      key: 'task',
+      value: JSON.stringify(this.taskS.taskData()),
+    });
   }
   pendingTasks = computed(() =>
   this.taskS.taskData().filter(t => !t.isCompleted)

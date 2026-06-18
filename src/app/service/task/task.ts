@@ -1,10 +1,21 @@
 import { Injectable, Signal, signal } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Task {
   // Pass the array as an argument to the signal() function
+  constructor(){
+    this.checkName()
+  }
+async checkName() {
+    const { value } = await Preferences.get({ key: 'task' }) || {};
+    if (value) {
+        this.taskData.set(JSON.parse(value))
+    }
+}
+
   taskData = signal([
     {
       task: 'Study lesson',

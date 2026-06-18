@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IonContent, IonHeader, IonIcon, IonItem,IonLabel,IonModal, IonTitle,IonInput,IonTextarea,IonText, IonButton, IonCard, IonCardContent, IonDatetimeButton, IonDatetime, IonFooter } from "@ionic/angular/standalone";
 import { Task } from '../service/task/task';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-add-Task',
@@ -13,6 +14,7 @@ import { Task } from '../service/task/task';
 export class AddTaskComponent  implements OnInit {
 
   private taskS = inject(Task)
+  private router = inject(Router)
   
   ngOnInit() {}
 
@@ -35,12 +37,18 @@ export class AddTaskComponent  implements OnInit {
     this.taskForm.controls.category.setValue(val)
   }
 
-  onSubmit(){
+  async onSubmit(){
     console.log(this.taskForm.value)
     const task = this.taskS.taskData().some(p => p.task === this.taskForm.value.task)
     if (!task) {
       this.taskS.taskData.update(val => [...val,this.taskForm.value as any])
+      await Preferences.set({
+        key: 'task',
+        value: JSON.stringify(this.taskS.taskData()),
+      });
+      this.router.navigate(["/home"])
     }
+    
   }
 
 }
