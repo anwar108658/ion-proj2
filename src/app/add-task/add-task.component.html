@@ -30,7 +30,7 @@
           <ion-label class="form-label">Category</ion-label>
           <div class="category-group">
             @for (item of categoryList; track $index) {
-              <ion-button size="large" shape="round" (click)="getCategoryVal({cat:item.iconName,color:item.color})" fill="clear" [color]="item.color" class="ion-no-border">
+              <ion-button size="large" shape="round" (click)="getCategoryVal({cat:item.iconName,color:item.color})" [fill]="($any(taskForm.controls.category.value).cat === item.iconName) ? 'clear' : ''"   [color]="item.color" class="ion-no-border">
                 <ion-icon slot="icon-only" [name]="item.iconName" ></ion-icon>
               </ion-button>
             }

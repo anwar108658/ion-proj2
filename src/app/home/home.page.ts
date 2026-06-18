@@ -23,7 +23,6 @@ export class HomePage {
       )
     );
   }
-
   pendingTasks = computed(() =>
   this.taskS.taskData().filter(t => !t.isCompleted)
 );

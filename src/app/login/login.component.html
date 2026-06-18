@@ -1,30 +1,78 @@
-<ion-content [fullscreen]="true" >
-  <div class="login-content">
-    <form class="content">
-      <ion-img src="../assets/userLogin.png" style="width: 150px;"></ion-img>
-      <ion-title class="title">Sign In</ion-title>
-      <ion-list lines="inset">
-        <ion-item>
-          <ion-input  label="Enter Email :"  placeholder="abc@gmail.com"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input formControlName="password" errorText="Required" type="password" placeholder="*********" label="Password :" >
-            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+<ion-content [fullscreen]="true">
+
+  <!-- Header -->
+  <div class="headerUI">
+    <div class="logo-section">
+      <ion-text color="light">
+        <h1>Welcome Back</h1>
+        <p>Sign in to continue</p>
+      </ion-text>
+    </div>
+  </div>
+
+  <!-- Login Card -->
+  <form [formGroup]="loginForm" (submit)="login(loginForm)" class="main-content ion-padding">
+
+    <ion-card class="login-card">
+
+      <ion-card-content>
+
+        <ion-item lines="none" class="input-item">
+          <ion-icon
+            slot="start"
+            name="mail-outline"
+            color="primary">
+          </ion-icon>
+
+          <ion-input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+            >
           </ion-input>
         </ion-item>
-        <ion-item></ion-item>
-        <ion-button routerLink="/home" class="footer-btn" expand="full" shape="round">Log In</ion-button>
-        <ion-button  expand="full" shape="round" color="medium">
-          <ion-icon slot="start" name="logo-google"></ion-icon>
-          Log In With Google
-        </ion-button>
-        <ion-item>
-          <ion-text color="secondary">
-            you don't have any account yet ?
-          </ion-text>
+
+        <ion-item lines="none" class="input-item">
+          <ion-icon
+            slot="start"
+            name="lock-closed-outline"
+            color="primary">
+          </ion-icon>
+
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            >
+          </ion-input>
         </ion-item>
-        <ion-button routerLink="/signup" type="button" color="tertiary" expand="full" shape="round">Registered Acount</ion-button>
-      </ion-list>
-    </form>
-  </div>
+
+        <ion-button
+          expand="block"
+          shape="round"
+          type="submit"
+          class="login-btn"
+          [disabled]="loginForm.invalid"
+          >
+          Login
+        </ion-button>
+
+        <div class="extra-links">
+
+          <ion-text color="medium">
+            Forgot Password?
+          </ion-text>
+
+          <ion-text color="primary">
+            Create Account
+          </ion-text>
+
+        </div>
+
+      </ion-card-content>
+
+    </ion-card>
+
+  </form>
+
 </ion-content>

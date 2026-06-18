@@ -36,7 +36,8 @@
                     <p>{{item.time | date:'shortTime'}}</p>
                   </div>
                 </ion-item>
-                <ion-checkbox (click)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox>
+                <ion-icon (click)="toggleCompletedStatus(item.task)" size="large"  name="checkbox-outline"></ion-icon>
+                <!-- <ion-checkbox (ionChange)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox> -->
             </div>
           }@empty {
             <ion-text color="success" style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">No pending tasks found.</ion-text>
@@ -67,7 +68,8 @@
                     <p>{{item.time | date:'shortTime'}}</p>
                   </div>
                 </ion-item>
-                <ion-checkbox (click)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox>
+                <!-- <ion-checkbox (ionChange)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox> -->
+                <ion-icon (click)="toggleCompletedStatus(item.task)" size="large" color="tertiary" name="checkbox"></ion-icon>
               </div>
           } @empty {
              <ion-text color="warning" style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">the task is not completed yet</ion-text>

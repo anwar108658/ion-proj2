@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, trash, pencil, arrowBack, trophyOutline, documentTextOutline, calendarOutline, chevronBackOutline, timeOutline, calendarClearOutline, closeOutline } from 'ionicons/icons';
+import { add, trash, pencil, arrowBack, trophyOutline, documentTextOutline, calendarOutline, chevronBackOutline, timeOutline, calendarClearOutline, closeOutline, mailOutline, lockClosedOutline, checkboxOutline, checkbox } from 'ionicons/icons';
 
 
 @Component({
@@ -20,6 +20,10 @@ export class AppComponent {
       timeOutline,
       calendarClearOutline,
       closeOutline,
+      mailOutline,
+      lockClosedOutline,
+      checkboxOutline,
+      checkbox
     })
   }
 }
