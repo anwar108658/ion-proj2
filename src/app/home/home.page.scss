@@ -3,7 +3,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 20px;
+  padding: 15px;
   height: 230px;
   & .hui1{
     display: flex;
@@ -12,6 +12,7 @@
       flex: 1;
       padding-left: 4rem;
       font-size: 1rem;
+      word-spacing: 3px;
     }
   }
   & .hui2{
@@ -26,12 +27,13 @@
   }
 }
 ion-text{
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 ion-content{
   --background: #F1F5F9;
 }
 .main-content{
+  padding: 9px;
   ion-text{
     font-size: 1.2rem;
     font-weight: 600;
@@ -44,14 +46,15 @@ ion-content{
 }
 .section-title{
   letter-spacing: normal;
+  font-size: 17px !important;
   font-weight: 700 !important;
+  color: #1d1c1c;
 }
 .m-card-2{
   margin-top: 1.4rem;
 }
 .m-card{
-  height: 264px;
-  overflow: scroll;
+  min-height: 120px;
   border-radius: 17px;
   box-shadow: none;
   & ion-card-content{
@@ -71,11 +74,24 @@ ion-content{
     flex: 1;
   }
   & ion-label{
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 17.2px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #222020;
+  }
+  & p{
+    margin-top: -6px;
     color: #444;
+
   }
 }
+
+.completed-list-item{
+  & ion-label,p{
+    text-decoration: line-through;
+  }
+}
+
 .footer-btn{
   --background: #4A3780;
   --color: white;
@@ -106,10 +122,13 @@ ion-list{
   gap: 10px;
 }
 
-/* Target the checkbox in your CSS file */
-ion-checkbox::part(container) {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  border-color: #aaa;
+/* Target the top-level element directly */
+ion-item[disabled] {
+  opacity: 0.6 !important; /* Forces the outer container to be darker/more visible */
+}
+
+
+ion-icon.thin-icon {
+  /* Default is 32px. Lower values make the line thinner */
+  --ionicon-stroke-width: 15px; 
 }

@@ -29,7 +29,9 @@ export class HomePage {
       value: JSON.stringify(this.taskS.taskData()),
     });
   }
-  pendingTasks = computed(() =>
+
+
+pendingTasks = computed(() =>
   this.taskS.taskData().filter(t => !t.isCompleted)
 );
 

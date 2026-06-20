@@ -2,20 +2,42 @@
 
   <!-- Header -->
   <div class="headerUI">
-    <div class="logo-section">
+
+    <div class="title-section">
+
       <ion-text color="light">
-        <h1>Welcome Back</h1>
-        <p>Sign in to continue</p>
+        <h1>Create Account</h1>
+        <p>Start organizing your tasks today</p>
       </ion-text>
+
     </div>
+
   </div>
 
-  <!-- Login Card -->
-  <form [formGroup]="loginForm" (submit)="login(loginForm)" class="main-content ion-padding">
+  <!-- Content -->
 
-    <ion-card class="login-card">
+  <form [formGroup]="signupForm" (submit)="createAccount(signupForm)" class="main-content ion-padding">
+
+    <ion-card class="signup-card">
 
       <ion-card-content>
+
+        <!-- Name -->
+
+        <ion-item  lines="none" class="input-item">
+          <ion-icon
+            slot="start"
+            name="person-outline"
+            color="primary">
+          </ion-icon>
+
+          <ion-input
+            formControlName="name"
+            placeholder="Full Name">
+          </ion-input>
+        </ion-item>
+
+        <!-- Email -->
 
         <ion-item lines="none" class="input-item">
           <ion-icon
@@ -23,14 +45,15 @@
             name="mail-outline"
             color="primary">
           </ion-icon>
-
+          
           <ion-input
             type="email"
-            placeholder="Email"
             formControlName="email"
-            >
+            placeholder="Email@gmail.com">
           </ion-input>
         </ion-item>
+
+        <!-- Password -->
 
         <ion-item lines="none" class="input-item">
           <ion-icon
@@ -38,12 +61,11 @@
             name="lock-closed-outline"
             color="primary">
           </ion-icon>
-
+          
           <ion-input
             type="password"
-            placeholder="Password"
             formControlName="password"
-            >
+            placeholder="Password">
           </ion-input>
         </ion-item>
 
@@ -51,25 +73,22 @@
           expand="block"
           shape="round"
           type="submit"
-          class="login-btn"
-          [disabled]="loginForm.invalid"
-          >
-          Login
+          [disabled]="signupForm.invalid"
+          class="signup-btn">
+
+          Create Account
+
         </ion-button>
 
-        <div class="extra-links">
+        <div class="bottom-text">
 
-          <ion-text color="medium">
-            Forgot Password?
-          </ion-text>
+          <span>Already have an account?</span>
 
           <ion-button
             fill="clear"
             size="small"
-            routerLink="/signup">
-
-            sign Up
-
+            routerLink="/login">
+            Login
           </ion-button>
 
         </div>

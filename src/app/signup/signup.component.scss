@@ -2,78 +2,59 @@ ion-content {
   --background: #F1F5F9;
 }
 
-/* Header */
-
 .headerUI {
   background-image: url('../../assets/bg.png');
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
 
   height: 260px;
-  padding: 20px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.logo-section {
-
+.title-section {
   text-align: center;
 
   h1 {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 10px;
   }
 
   p {
-    font-size: 1rem;
     opacity: 0.9;
   }
 }
-
-/* Main Content */
 
 .main-content {
   margin-top: -90px;
 }
 
-/* Card */
-
-.login-card {
+.signup-card {
   border-radius: 20px;
   box-shadow: none;
-  overflow: hidden;
 }
 
-.login-card ion-card-content {
-  padding: 25px;
+.signup-card ion-card-content {
+  padding: 24px;
 }
-
-/* Inputs */
 
 .input-item {
-  margin-bottom: 18px;
-  --background: #f8fafc;
+  margin-bottom: 16px;
+
+  --background: #fff;
+
   border-radius: 14px;
-  border: 1px solid #e2e8f0;
+
+  border: 1px solid #E2E8F0;
 }
 
-.input-item ion-icon {
-  font-size: 22px;
-}
-
-/* Button */
-
-.login-btn {
-
+.signup-btn {
   margin-top: 20px;
 
   --background: #4A3780;
-
-  --border-radius: 30px;
 
   height: 52px;
 
@@ -82,22 +63,12 @@ ion-content {
   text-transform: none;
 }
 
-/* Links */
-
-.extra-links {
-
-  margin-top: 20px;
+.bottom-text {
+  margin-top: 16px;
 
   display: flex;
-
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
-  font-size: 0.9rem;
-}
-
-/* Typography */
-
-ion-text {
-  letter-spacing: 1px;
+  gap: 5px;
 }
