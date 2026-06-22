@@ -21,28 +21,36 @@ export class LoginComponent  implements OnInit {
 
  async ngOnInit() {
     const { value } = await Preferences.get({
-      key: 'name'
+      key: 'signup'
     });
     if (value) {
+      this.signUpVal = JSON.parse(value)
       this.router.navigate(['/home'])
     }
   }
 
+  signUpVal:any
+
   async login(val:any){
-    await Preferences.set({
-      key: 'name',
-      value: JSON.stringify({
-        name: 'Anwar',
-        email: 'admin@gmail.com'
-      })
-    });
-
-    const { value } = await Preferences.get({
-      key: 'name'
-    });
-
-    if (value) {
+    console.log(this.signUpVal)
+    if (val.value.email === this.signUpVal?.email && val.value.password === this.signUpVal?.password) {
+      await Preferences.set({
+        key: 'name',
+        value: JSON.stringify({
+          name: 'antra',
+          email: 'admin@gmail.com'
+        })
+      });
       this.router.navigate(['/home'])
+  
+      // const { value } = await Preferences.get({
+      //   key: 'name'
+      // });
+  
+      // if (value) {
+      // }
+    } else{
+      alert("wrong credential")
     }
   }
 

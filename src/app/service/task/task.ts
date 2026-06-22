@@ -41,5 +41,13 @@ async checkName() {
       time: null,
       isCompleted: false
     },
+    {
+      task: 'Go to Home',
+      taskDetail: '98',
+      category: { cat: 'calendar-outline', color: 'success' },
+      date: Date.now(),
+      time: Date.now(),
+      isCompleted: true
+    },
   ]);
 }

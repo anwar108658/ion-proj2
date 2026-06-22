@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { IonContent, IonHeader, IonIcon, IonItem,IonLabel,IonModal, IonTitle,IonInput,IonTextarea,IonText, IonButton, IonCard, IonCardContent, IonDatetimeButton, IonDatetime, IonFooter } from "@ionic/angular/standalone";
 import { Task } from '../service/task/task';
@@ -16,13 +16,15 @@ export class AddTaskComponent  implements OnInit {
   private taskS = inject(Task)
   private router = inject(Router)
   
-  ngOnInit() {}
+   ngOnInit() {
+    
+  }
 
   taskForm = new  FormGroup({
-    task: new FormControl('',[]),
-    category: new FormControl({},[]),
-    date: new FormControl(null,[]),
-    time: new FormControl(null,[]),
+    task: new FormControl('',[Validators.required]),
+    category: new FormControl({},[Validators.required]),
+    date: new FormControl(null,[Validators.required]),
+    time: new FormControl(null,[Validators.required]),
     taskDetail: new FormControl('',[]),
     isCompleted:new FormControl(false,[])
   })
@@ -40,7 +42,7 @@ export class AddTaskComponent  implements OnInit {
   async onSubmit(){
     console.log(this.taskForm.value)
     const task = this.taskS.taskData().some(p => p.task === this.taskForm.value.task)
-    if (!task) {
+    if (!task && !this.taskForm.invalid) {
       this.taskS.taskData.update(val => [...val,this.taskForm.value as any])
       await Preferences.set({
         key: 'task',
