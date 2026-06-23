@@ -5,27 +5,27 @@ import { guestGuard } from './guard/guest/guest-guard';
 export const routes: Routes = [
   {
     path: 'login',
-    canActivate:[guestGuard],
+    // canActivate:[guestGuard],
     loadComponent: () => import('./login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'signup',
-    canActivate:[guestGuard],
+    // canActivate:[guestGuard],
     loadComponent: () => import('./signup/signup.component').then((m) => m.SignupComponent),
   },
   {
     path: 'home',
-    canActivate:[authGuard],
+    // canActivate:[authGuard],
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
     path: 'task',
-    canActivate:[authGuard],
+    // canActivate:[authGuard],
     loadComponent: () => import('./add-task/add-task.component').then((m) => m.AddTaskComponent),
   },
   {
     path: '',
-    redirectTo: 'signup',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
 ];

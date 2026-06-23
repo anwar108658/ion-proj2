@@ -4,6 +4,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonModal, IonIc
 import { Task } from '../service/task/task';
 import { DatePipe } from '@angular/common';
 import { Preferences } from '@capacitor/preferences';
+import { BackupService } from '../service/backup/backup';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { Preferences } from '@capacitor/preferences';
   imports: [DatePipe,RouterModule,IonHeader, IonContent, IonButton, IonIcon, IonText, IonCard, IonList, IonCardContent, IonItem, IonLabel, IonFooter],
 })
 export class HomePage {
-  constructor() {}
+  constructor(public backupService:BackupService) {}
   public taskS = inject(Task)
 
  async toggleCompletedStatus(id:string){
@@ -38,4 +39,14 @@ pendingTasks = computed(() =>
 completedTasks = computed(() =>
   this.taskS.taskData().filter(t => t.isCompleted)
 );
+
+async export() {
+  const file = await this.backupService.exportBackup();
+  console.log('Backup created:', file);
+}
+async import() {
+  const filePath = 'backup_123.json';
+  const result = await this.backupService.importBackup(filePath);
+  console.log('Backup created:', result);
+}
 }
