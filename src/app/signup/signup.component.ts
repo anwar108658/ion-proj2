@@ -18,16 +18,12 @@ export class SignupComponent  implements OnInit {
     name:['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
+    isLogin:[false],
   });
 
-  async ngOnInit() {
-    const { value } = await Preferences.get({
-      key: 'name'
-    });
-    if (value) {
-      this.router.navigate(['/home'])
-    }
-  }
+  ngOnInit() {
+
+}
 
   async createAccount(val:any){
     console.log(val)

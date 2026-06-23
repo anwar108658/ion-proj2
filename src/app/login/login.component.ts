@@ -25,30 +25,19 @@ export class LoginComponent  implements OnInit {
     });
     if (value) {
       this.signUpVal = JSON.parse(value)
-      this.router.navigate(['/home'])
     }
   }
 
   signUpVal:any
 
   async login(val:any){
-    console.log(this.signUpVal)
     if (val.value.email === this.signUpVal?.email && val.value.password === this.signUpVal?.password) {
+      const updateVal = {...this.signUpVal,isLogin:true}
       await Preferences.set({
-        key: 'name',
-        value: JSON.stringify({
-          name: 'antra',
-          email: 'admin@gmail.com'
-        })
+        key: 'signup',
+        value: JSON.stringify(updateVal)
       });
       this.router.navigate(['/home'])
-  
-      // const { value } = await Preferences.get({
-      //   key: 'name'
-      // });
-  
-      // if (value) {
-      // }
     } else{
       alert("wrong credential")
     }
