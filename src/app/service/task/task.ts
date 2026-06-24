@@ -10,10 +10,10 @@ export class Task {
     this.checkName()
   }
 async checkName() {
-    const { value } = await Preferences.get({ key: 'task' }) || {};
-    if (value) {
-        this.taskData.set(JSON.parse(value))
-    }
+  const { value } = await Preferences.get({ key: 'task' }) || {};
+  if (value) {
+    this.taskData.set(JSON.parse(value))
+  }
 }
 
   taskData = signal([

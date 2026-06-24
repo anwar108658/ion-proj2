@@ -26,7 +26,7 @@ export class BackupService {
 
     const fileName = `backup_123.json`;
 
-     await Filesystem.writeFile({
+    await Filesystem.writeFile({
       path: fileName,
       data: JSON.stringify(backup, null, 2),
       directory: Directory.Documents,
