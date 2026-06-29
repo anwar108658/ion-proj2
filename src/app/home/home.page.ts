@@ -40,13 +40,15 @@ completedTasks = computed(() =>
   this.taskS.taskData().filter(t => t.isCompleted)
 );
 
+xyz:any[] = []
+
 async export() {
   const file = await this.backupService.exportBackup();
   console.log('Backup created:', file);
 }
 async import() {
-  const filePath = 'backup_123.json';
-  const result = await this.backupService.importBackup(filePath);
+  const result = await this.backupService.importBackup();
+  this.xyz = result.todos
   console.log('Backup created:', result);
 }
 }

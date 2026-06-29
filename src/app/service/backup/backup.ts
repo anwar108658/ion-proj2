@@ -7,65 +7,78 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 })
 export class BackupService {
 
-  private AUTH_KEY = 'signup';
-  private TODO_KEY = 'task';
+  private readonly AUTH_KEY = 'signup';
+  private readonly TODO_KEY = 'task';
+  private readonly BACKUP_FILE = 'backup.json';
 
   // -------------------------
   // EXPORT BACKUP
   // -------------------------
-  async exportBackup() {
-    const auth = await Preferences.get({ key: this.AUTH_KEY });
-    const todos = await Preferences.get({ key: this.TODO_KEY });
+  async exportBackup(): Promise<string> {
+    try {
+      const auth = await Preferences.get({ key: this.AUTH_KEY });
+      const todos = await Preferences.get({ key: this.TODO_KEY });
 
-    const backup = {
-      version: 1,
-      createdAt: new Date().toISOString(),
-      auth: auth.value ? JSON.parse(auth.value) : null,
-      todos: todos.value ? JSON.parse(todos.value) : []
-    };
+      const backup = {
+        version: 1,
+        createdAt: new Date().toISOString(),
+        auth: auth.value ? JSON.parse(auth.value) : null,
+        todos: todos.value ? JSON.parse(todos.value) : []
+      };
 
-    const fileName = `backup_123.json`;
+      await Filesystem.writeFile({
+        path: this.BACKUP_FILE,
+        data: JSON.stringify(backup, null, 2),
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8
+      });
 
-    await Filesystem.writeFile({
-      path: fileName,
-      data: JSON.stringify(backup, null, 2),
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8
-    });
+      return this.BACKUP_FILE;
 
-    return fileName;
+    } catch (error) {
+      console.error('Backup failed:', error);
+      throw new Error('Failed to create backup.');
+    }
   }
 
   // -------------------------
   // IMPORT BACKUP
   // -------------------------
-  async importBackup(filePath: string) {
-    const file = await Filesystem.readFile({
-      path: filePath,
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8
-    });
+  async importBackup(): Promise<any> {
+    try {
 
-    const backup = JSON.parse(file.data as string);
+      const file = await Filesystem.readFile({
+        path: this.BACKUP_FILE,
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8
+      });
 
-    if (!backup?.version) {
-      throw new Error('Invalid backup file');
-    }
+      const backup = JSON.parse(file.data as string);
 
-    if (backup.auth) {
+      // Validation
+      if (
+        !backup ||
+        backup.version !== 1 ||
+        !Array.isArray(backup.todos)
+      ) {
+        throw new Error('Invalid backup file');
+      }
+
       await Preferences.set({
         key: this.AUTH_KEY,
         value: JSON.stringify(backup.auth)
       });
-    }
 
-    if (backup.todos) {
       await Preferences.set({
         key: this.TODO_KEY,
         value: JSON.stringify(backup.todos)
       });
-    }
 
-    return true;
+      return backup;
+
+    } catch (error) {
+      console.error('Restore failed:', error);
+      throw new Error('Failed to restore backup.');
+    }
   }
 }

@@ -85,7 +85,13 @@
       <ion-button (click)="import()">import</ion-button>
     </ion-card>
   </div>
-
+<div>
+  @for (item of xyz; track $index) {
+    <li>{{item.task}}</li>
+  }@empty {
+    <li>not found</li>
+  }
+</div>
 </ion-content>
 
 <ion-footer class="ion-no-border ion-padding">
