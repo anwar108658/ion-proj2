@@ -1,0 +1,57 @@
+<!-- Header with texture background -->
+<ion-header class="ion-no-border">
+  <div class="headerUI">
+    <ion-button routerLink="/home" color="light" shape="round" class="close-btn">
+      <ion-icon  class="ion-padding" slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <div class="header-title-container">
+      <ion-text color="light">
+        Setting
+      </ion-text>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h3 class="ion-padding">Backup :</h3>
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item  slot="header">
+        <ion-label>📂 Offline backup</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item>
+          <ion-button (click)="export()" size="medium" color="warning">
+            <ion-icon slot="start" name="folder-open-outline"></ion-icon>
+            Export
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="import()" size="medium" color="success">
+            <ion-icon slot="start" name="folder-outline"></ion-icon>
+            Import
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item  slot="header">
+        <ion-label>🌩️ Cloud backup</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item>
+          <ion-button size="medium" color="warning">
+            <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+            Export
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button size="medium" color="success">
+            <ion-icon slot="start" name="cloud-download-outline"></ion-icon>
+            Import
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

@@ -53,15 +53,7 @@ export class BackupService {
         encoding: Encoding.UTF8
       });
 
-      // 3. Open share menu so user can save or send the file out of the hidden sandbox
-      // await Share.share({
-      //   title: 'App Backup Data',
-      //   text: 'Exporting your application data',
-      //   url: fileResult.uri,
-      //   dialogTitle: 'Save or Send Backup File'
-      // });
-
-      // console.log(this.BACKUP_FILE)
+      
       return this.BACKUP_FILE;
 
     } catch (error) {

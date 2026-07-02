@@ -1,0 +1,38 @@
+// Header Setup with background image
+.headerUI {
+  background-image: url('../../assets/bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  & .header-title-container {
+    flex: 1;
+    text-align: center;
+    ion-text {
+      font-size: 1rem;
+      word-spacing: 2px;
+    }
+  }
+}
+ion-accordion {
+  margin: 0 auto;
+}
+
+ion-accordion.accordion-expanding,
+ion-accordion.accordion-expanded {
+  width: calc(100% - 32px);
+  margin: 16px auto;
+}
+
+ion-accordion.accordion-collapsing ion-item[slot='header'],
+ion-accordion.accordion-collapsed ion-item[slot='header'] {
+  --background: var(--ion-color-light);
+  --color: var(--ion-color-light-contrast);
+}
+
+ion-accordion.accordion-expanding ion-item[slot='header'],
+ion-accordion.accordion-expanded ion-item[slot='header'] {
+  --background: #4A377F;
+  --color: var(--ion-color-tertiary-contrast);
+}

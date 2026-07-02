@@ -6,6 +6,9 @@
           <ion-icon class="ion-padding" slot="icon-only" name="chevron-back-outline"></ion-icon>
         </ion-button>
         <ion-text color="light">October 20,2022</ion-text>
+        <ion-button fill="clear"  routerLink="/setting" color="light" shape="round">
+          <ion-icon size="large" class="ion-padding" slot="icon-only" name="apps-outline"></ion-icon>
+        </ion-button>
       </div>
       <div class="hui2">
         <ion-text color="light">
@@ -40,7 +43,7 @@
                 <!-- <ion-checkbox (ionChange)="toggleCompletedStatus(item.task)" [checked]="item.isCompleted" color="tertiary" slot="end"></ion-checkbox> -->
             </div>
           }@empty {
-            <ion-text color="success" style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">No pending tasks found.</ion-text>
+            <ion-text style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">No pending tasks found.</ion-text>
           }
         </ion-list>
       </ion-card-content>
@@ -72,26 +75,26 @@
                 <ion-icon (click)="toggleCompletedStatus(item.task)" size="large" color="tertiary" name="checkbox"></ion-icon>
               </div>
           } @empty {
-             <ion-text color="warning" style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">the task is not completed yet</ion-text>
+             <ion-text style="margin-top: 10px;text-align: center;font-size: 1rem;letter-spacing: 1px;">the task is not completed yet</ion-text>
           }
         </ion-list>
       </ion-card-content>
     </ion-card>
-    <ion-text class="ion-padding section-title">
+    <!-- <ion-text class="ion-padding section-title">
       Backup
     </ion-text>
     <ion-card>
       <ion-button (click)="export()">export</ion-button>
       <ion-button (click)="import()">import</ion-button>
-    </ion-card>
+    </ion-card> -->
   </div>
-<div>
+<!-- <div>
   @for (item of xyz; track $index) {
     <li>{{item.task}}</li>
   }@empty {
     <li>not found</li>
   }
-</div>
+</div> -->
 </ion-content>
 
 <ion-footer class="ion-no-border ion-padding">

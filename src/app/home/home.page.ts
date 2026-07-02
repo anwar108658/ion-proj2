@@ -13,7 +13,7 @@ import { BackupService } from '../service/backup/backup';
   imports: [DatePipe,RouterModule,IonHeader, IonContent, IonButton, IonIcon, IonText, IonCard, IonList, IonCardContent, IonItem, IonLabel, IonFooter],
 })
 export class HomePage {
-  constructor(public backupService:BackupService) {}
+  constructor() {}
   public taskS = inject(Task)
 
  async toggleCompletedStatus(id:string){
@@ -39,15 +39,4 @@ completedTasks = computed(() =>
   this.taskS.taskData().filter(t => t.isCompleted)
 );
 
-xyz:any[] = []
-
-async export() {
-  const file = await this.backupService.exportBackup();
-  console.log('Backup created:', file);
-}
-async import() {
-  const result = await this.backupService.importBackup();
-  this.xyz = result.todos
-  console.log('Backup created:', result);
-}
 }

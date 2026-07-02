@@ -24,6 +24,11 @@ export const routes: Routes = [
     loadComponent: () => import('./add-task/add-task.component').then((m) => m.AddTaskComponent),
   },
   {
+    path: 'setting',
+    // canActivate:[authGuard],
+    loadComponent: () => import('./setting/setting.component').then((m) => m.SettingComponent),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
