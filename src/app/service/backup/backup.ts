@@ -9,7 +9,6 @@ import { Capacitor } from '@capacitor/core';
   providedIn: 'root'
 })
 export class BackupService {
-
   private readonly AUTH_KEY = 'signup';
   private readonly TODO_KEY = 'task';
   private readonly BACKUP_FILE = 'backup.json';
@@ -46,14 +45,27 @@ export class BackupService {
       }
 
       // 2. NATIVE MOBILE execution
-      const fileResult = await Filesystem.writeFile({
+      await Filesystem.writeFile({
         path: this.BACKUP_FILE,
         data: jsonData,
         directory: Directory.Documents, 
         encoding: Encoding.UTF8
       });
 
-      
+      const fileResult = await Filesystem.getUri({
+        directory: Directory.Documents,
+        path: this.BACKUP_FILE
+      });
+
+    // Step 4: Open the native Share Sheet with the real file URI
+    await Share.share({
+      title: 'App Data Backup File',
+      text: 'Please find your downloadable file attached.',
+      files: [fileResult.uri],                        
+      dialogTitle: 'Export Backup'
+    });
+
+
       return this.BACKUP_FILE;
 
     } catch (error) {
