@@ -133,3 +133,7 @@ ion-button.light-bg-button[fill="solid"]::part(native) {
   padding: 14px;
   border: 2px solid white !important; 
 }
+
+.disable-pointer{
+  pointer-events: none;
+}

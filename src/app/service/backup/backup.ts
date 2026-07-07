@@ -52,21 +52,20 @@ export class BackupService {
         encoding: Encoding.UTF8
       });
 
-      const fileResult = await Filesystem.getUri({
-        directory: Directory.Documents,
-        path: this.BACKUP_FILE
-      });
+    //   const fileResult = await Filesystem.getUri({
+    //     directory: Directory.Documents,
+    //     path: this.BACKUP_FILE
+    //   });
 
-    // Step 4: Open the native Share Sheet with the real file URI
-    await Share.share({
-      title: 'App Data Backup File',
-      text: 'Please find your downloadable file attached.',
-      files: [fileResult.uri],                        
-      dialogTitle: 'Export Backup'
-    });
+    // // Step 4: Open the native Share Sheet with the real file URI
+    // await Share.share({
+    //   title: 'App Data Backup File',
+    //   text: 'Please find your downloadable file attached.',
+    //   files: [fileResult.uri],                        
+    //   dialogTitle: 'Export Backup'
+    // });
 
-
-      return this.BACKUP_FILE;
+    return this.BACKUP_FILE;
 
     } catch (error) {
       console.error('Backup failed:', error);

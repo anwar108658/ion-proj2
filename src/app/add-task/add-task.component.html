@@ -1,15 +1,17 @@
 <!-- Header with texture background -->
 <ion-header class="ion-no-border">
-  <div class="headerUI">
-    <ion-button routerLink="/home" color="light" shape="round" class="close-btn">
-      <ion-icon  class="ion-padding" slot="icon-only" name="close-outline"></ion-icon>
-    </ion-button>
-    <div class="header-title-container">
-      <ion-text color="light">
-        Add New Task
-      </ion-text>
+  <ion-toolbar>
+    <div class="headerUI">
+      <ion-button routerLink="/home" color="light" shape="round" class="close-btn">
+        <ion-icon  class="ion-padding" slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+      <div class="header-title-container">
+        <ion-text color="light">
+          Add New Task
+        </ion-text>
+      </div>
     </div>
-  </div>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -42,20 +44,20 @@
           <ion-label class="form-label">When</ion-label>
           <div class="datetime-row">
             <!-- Date Picker Item -->
-            <div lines="none" class="custom-input-item datetime-item">
-              <ion-datetime-button datetime="date-picker"></ion-datetime-button>
-              <ion-modal [keepContentsMounted]="true">
+            <div lines="none"  (click)="isFormOpen('date')" class="custom-input-item datetime-item">
+              <ion-datetime-button datetime="date-picker" class="disable-pointer"></ion-datetime-button>
+              <ion-modal [isOpen]="inputFormOpen.date" (ionModalDidDismiss)="isFormOpen('date')" [keepContentsMounted]="true">
                 <ng-template>
-                  <ion-datetime formControlName="date" id="date-picker" presentation="date"></ion-datetime>
+                  <ion-datetime [preferWheel]="true" formControlName="date" id="date-picker" presentation="date"></ion-datetime>
                 </ng-template>
               </ion-modal>
               <ion-icon color="tertiary" name="calendar-clear-outline" slot="end" class="input-icon"></ion-icon>
             </div>
 
             <!-- Time Picker Item -->
-            <div lines="none" class="custom-input-item datetime-item">
-              <ion-datetime-button color="secondary" datetime="time-picker"></ion-datetime-button>
-              <ion-modal [keepContentsMounted]="true">
+            <div lines="none" (click)="isFormOpen('time')" class="custom-input-item datetime-item">
+              <ion-datetime-button color="secondary" datetime="time-picker" class="disable-pointer"></ion-datetime-button>
+              <ion-modal [isOpen]="inputFormOpen.time" (ionModalDidDismiss)="isFormOpen('time')" [keepContentsMounted]="true">
                 <ng-template>
                   <ion-datetime formControlName="time" id="time-picker" presentation="time"></ion-datetime>
                 </ng-template>

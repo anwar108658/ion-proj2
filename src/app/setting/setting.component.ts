@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IonHeader, IonContent, IonFooter, IonButton, IonIcon, IonText, IonAccordionGroup, IonAccordion,IonItem,IonLabel } from "@ionic/angular/standalone";
+import { IonHeader, IonContent, IonFooter, IonButton, IonToolbar,IonIcon, IonText, IonAccordionGroup, IonAccordion,IonItem,IonLabel } from "@ionic/angular/standalone";
 import { BackupService } from '../service/backup/backup';
 
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss'],
-  imports: [RouterModule, IonHeader, IonContent, IonButton, IonIcon, IonText, IonAccordionGroup, IonAccordion,IonItem,IonLabel],
+  imports: [RouterModule, IonHeader, IonToolbar, IonContent, IonButton, IonIcon, IonText, IonAccordionGroup, IonAccordion,IonItem,IonLabel],
 })
 export class SettingComponent  implements OnInit {
 

@@ -1,24 +1,28 @@
 <ion-content [fullscreen]="true">
-  <ion-header class="ion-no-border">
-    <div class="headerUI">
-      <div class="hui1">
-        <ion-button  color="light" shape="round">
-          <ion-icon class="ion-padding" slot="icon-only" name="chevron-back-outline"></ion-icon>
-        </ion-button>
-        <ion-text color="light">October 20,2022</ion-text>
-        <ion-button fill="clear"  routerLink="/setting" color="light" shape="round">
-          <ion-icon size="large" class="ion-padding" slot="icon-only" name="apps-outline"></ion-icon>
-        </ion-button>
-      </div>
-      <div class="hui2">
-        <ion-text color="light">
-          <h1>My Todo List</h1>
-        </ion-text>
-      </div>
-    </div>
-  </ion-header> 
 
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <div class="headerUI">
+        <div class="hui1">
+          <ion-button  color="light" shape="round">
+            <ion-icon class="ion-padding" slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+          <ion-text color="light">October 20,2022</ion-text>
+          <ion-button fill="clear"  routerLink="/setting" color="light" shape="round">
+            <ion-icon size="large" class="ion-padding" slot="icon-only" name="apps-outline"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="hui2">
+          <ion-text color="light">
+            <h1>My Todo List</h1>
+          </ion-text>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  
   <div class="main-content">
+
     <ion-card class="m-card-1 m-card">
       <ion-card-content class="ion-no-padding">
         <ion-list [scrollTop]="true"  lines="none">
@@ -48,9 +52,11 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
+
     <ion-text class="ion-padding section-title">
       Completed
     </ion-text>
+
     <ion-card class="m-card-2 m-card">
       <ion-card-content>
         <ion-list lines="none">
@@ -80,25 +86,15 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
-    <!-- <ion-text class="ion-padding section-title">
-      Backup
-    </ion-text>
-    <ion-card>
-      <ion-button (click)="export()">export</ion-button>
-      <ion-button (click)="import()">import</ion-button>
-    </ion-card> -->
+
   </div>
-<!-- <div>
-  @for (item of xyz; track $index) {
-    <li>{{item.task}}</li>
-  }@empty {
-    <li>not found</li>
-  }
-</div> -->
+
 </ion-content>
 
 <ion-footer class="ion-no-border ion-padding">
+
   <ion-button routerLink="/task" expand="block" class="footer-btn" shape="round" size="large">
     <ion-text color="light">Add New Task</ion-text>
   </ion-button>
+
 </ion-footer>

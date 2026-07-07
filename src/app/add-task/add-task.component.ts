@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IonContent, IonHeader, IonIcon, IonItem,IonLabel,IonModal, IonTitle,IonInput,IonTextarea,IonText, IonButton, IonCard, IonCardContent, IonDatetimeButton, IonDatetime, IonFooter } from "@ionic/angular/standalone";
+import { IonContent, IonHeader, IonIcon, IonItem,IonLabel,IonToolbar,IonModal, IonTitle,IonInput,IonTextarea,IonText, IonButton, IonCard, IonCardContent, IonDatetimeButton, IonDatetime, IonFooter } from "@ionic/angular/standalone";
 import { Task } from '../service/task/task';
 import { Preferences } from '@capacitor/preferences';
 
@@ -9,14 +9,14 @@ import { Preferences } from '@capacitor/preferences';
   selector: 'app-add-Task',
   templateUrl: './add-Task.component.html',
   styleUrls: ['./add-Task.component.scss'],
-  imports: [RouterModule,ReactiveFormsModule,IonContent, IonHeader, IonIcon, IonItem,IonLabel,IonTextarea,IonModal,IonText,IonInput, IonButton, IonCard, IonCardContent, IonDatetimeButton, IonDatetime, IonFooter],
+  imports: [RouterModule,ReactiveFormsModule,IonContent,IonToolbar, IonHeader, IonIcon, IonItem,IonLabel,IonTextarea,IonModal,IonText,IonInput, IonButton, IonCard, IonCardContent, IonDatetimeButton, IonDatetime, IonFooter],
 })
 export class AddTaskComponent  implements OnInit {
 
   private taskS = inject(Task)
   private router = inject(Router)
   
-   ngOnInit() {
+  ngOnInit() {
     
   }
 
@@ -28,6 +28,8 @@ export class AddTaskComponent  implements OnInit {
     taskDetail: new FormControl('',[]),
     isCompleted:new FormControl(false,[])
   })
+
+  inputFormOpen:any = {date:false,time:false}
   
   categoryList = [
     {id:3,label:"x",iconName:"document-text-outline",color:"secondary"},
@@ -50,7 +52,11 @@ export class AddTaskComponent  implements OnInit {
       });
       this.router.navigate(["/home"])
     }
-    
   }
+
+  isFormOpen(formName:string){
+    this.inputFormOpen[formName] = !this.inputFormOpen[formName];
+  }
+  
 
 }
