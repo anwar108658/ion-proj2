@@ -1,14 +1,15 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter', // Agar aapne package name change kiya hai to wo likhein
+  appId: 'io.ionic.starter',
   appName: 'todoUI',
   webDir: 'www',
   plugins: {
     GoogleSignIn: {
-      scopes: ['profile', 'email', 'https://google.com'],
-      // Aapki JSON string se extracted client_id yahan paste kar di hai
-      serverClientId: '42163742929-prljatpmgokpedijts35qdut0bnoslui.apps.googleusercontent.com',
+      // Only the web client ID is needed here
+      clientId: '42163742929-prljatpmgokpedijts35qdut0bnoslui.apps.googleusercontent.com',
+      // The Drive scope that gives you hidden app folder access (like WhatsApp)
+      scopes: ['https://www.googleapis.com/auth/drive.appdata']
     }
   }
 };

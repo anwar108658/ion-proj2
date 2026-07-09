@@ -42,13 +42,13 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-item>
-          <ion-button size="medium" color="warning">
+          <ion-button size="medium" (click)="onBackup()" color="warning">
             <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
             Export
           </ion-button>
         </ion-item>
         <ion-item>
-          <ion-button size="medium" color="success">
+          <ion-button size="medium" (click)="onRestore()" color="success">
             <ion-icon slot="start" name="cloud-download-outline"></ion-icon>
             Import
           </ion-button>

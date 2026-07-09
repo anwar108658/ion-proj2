@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonHeader, IonContent, IonFooter, IonButton, IonToolbar,IonIcon, IonText, IonAccordionGroup, IonAccordion,IonItem,IonLabel } from "@ionic/angular/standalone";
 import { BackupService } from '../service/backup/backup';
+import { DriveBackupService } from '../service/driveBackp/drive-backup';
 
 @Component({
   selector: 'app-setting',
@@ -11,7 +12,7 @@ import { BackupService } from '../service/backup/backup';
 })
 export class SettingComponent  implements OnInit {
 
-  constructor(public backupService:BackupService) {}
+  constructor(public backupService:BackupService,private driveBackupService: DriveBackupService) {}
   ngOnInit() {}
 
   async export() {
@@ -22,4 +23,13 @@ export class SettingComponent  implements OnInit {
     const result = await this.backupService.importBackup();
     console.log('Backup created:', result);
   }
+
+async onBackup() {
+  await this.driveBackupService.exportBackupToDrive();
+}
+
+async onRestore() {
+  await this.driveBackupService.importBackupFromDrive();
+}
+
 }
