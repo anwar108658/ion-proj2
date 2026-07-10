@@ -157,12 +157,31 @@ export class DriveBackupService {
   async importBackupFromDrive(): Promise<any> {
     try {
       const accessToken = await this.getAccessToken();
-      const fileId = await this.findAppDataFile(accessToken);
       
-      if (!fileId) {
-        throw new Error('No backup file found in Google Drive.');
+      // 🔥 FIX: Directly list ALL files in appDataFolder
+      const listUrl = 'https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=files(id,name,size)&orderBy=createdTime desc';
+      
+      const listResponse = await fetch(listUrl, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+
+      if (!listResponse.ok) {
+        throw new Error(`Failed to list files: ${listResponse.status}`);
       }
 
+      const listData = await listResponse.json();
+      console.log('📂 All files in appDataFolder:', listData);
+      
+      // Get the first file (most recent backup)
+      const fileId = listData.files?.[0]?.id;
+      
+      console.log(fileId, "ye backup he ");
+      
+      if (!fileId) {
+        throw new Error('No backup file found in Google Drive. Please create a backup first.');
+      }
+
+      // Download the file
       const downloadUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`;
       
       const response = await fetch(downloadUrl, {
@@ -174,7 +193,7 @@ export class DriveBackupService {
       }
 
       const backup = await response.json();
-
+      
       // Validate backup structure
       if (!backup || backup.version !== 1 || !Array.isArray(backup.todos)) {
         throw new Error('Invalid backup file format.');
@@ -190,16 +209,12 @@ export class DriveBackupService {
       }
 
       console.log('✅ Data successfully restored from Google Drive');
+      alert(backup.todos.length > 0 ? `Data restored successfully! (${backup.todos.length} tasks)` : 'No tasks found in backup.');
       return backup;
 
     } catch (error) {
       console.error('Restore failed:', error);
       throw error;
     }
-  }
-
-  // Check if user is already signed in
-  async isSignedIn(): Promise<boolean> {
-    return this.accessToken !== null;
   }
 }
