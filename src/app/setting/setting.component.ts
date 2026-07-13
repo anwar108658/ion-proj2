@@ -24,12 +24,12 @@ export class SettingComponent  implements OnInit {
     console.log('Backup created:', result);
   }
 
-async onBackup() {
-  await this.driveBackupService.exportBackupToDrive();
-}
+  async onBackup() {
+    await this.driveBackupService.exportBackupToDrive();
+  }
 
-async onRestore() {
-  await this.driveBackupService.importBackupFromDrive();
-}
+  async onRestore() {
+    await this.driveBackupService.importBackupFromDrive();
+  }
 
 }

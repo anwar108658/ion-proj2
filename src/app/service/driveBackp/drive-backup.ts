@@ -48,16 +48,6 @@ export class DriveBackupService {
     }
   }
 
-  // 2. Sign out (useful for testing)
-  async signOut(): Promise<void> {
-    try {
-      await GoogleSignIn.signOut();
-      this.accessToken = null;
-    } catch (error) {
-      console.error('Sign out failed:', error);
-    }
-  }
-
   // 3. EXPORT BACKUP TO HIDDEN APP DATA FOLDER
   async exportBackupToDrive(): Promise<void> {
     try {
