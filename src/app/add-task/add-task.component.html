@@ -21,9 +21,9 @@
       <ion-card-content>
         <!-- Task Title Input -->
         <div class="input-group">
-          <ion-label class="form-label">Task Title</ion-label>
+          <ion-label [class.error]="taskForm.controls.task.invalid && taskForm.controls.task.touched" class="form-label">Task Title</ion-label>
           <ion-item lines="none" class="custom-input-item">
-            <ion-input formControlName="task" placeholder="Pick up" value="Pick up"></ion-input>
+            <ion-input  formControlName="task" placeholder="Pick up"></ion-input>
           </ion-item>
         </div>
 
@@ -69,7 +69,7 @@
 
         <!-- Notes Textarea -->
         <div class="input-group">
-          <ion-label  class="form-label">Notes</ion-label>
+          <ion-label [class.error]="taskForm.controls.task.invalid && taskForm.controls.task.touched" class="form-label">Notes</ion-label>
           <ion-item lines="none" class="custom-input-item textarea-item">
             <ion-textarea formControlName="taskDetail" placeholder="Add your notes here" rows="10"></ion-textarea>
           </ion-item>

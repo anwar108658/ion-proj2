@@ -15,7 +15,7 @@ import { DriveBackupService } from '../service/driveBackp/drive-backup';
 export class HomePage {
   constructor(public driveBackupService: DriveBackupService) {}
   ngOnInit() {
-    this.onRestore();
+    // this.onRestore();
   }
 
   public taskS = inject(Task)

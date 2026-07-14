@@ -137,3 +137,8 @@ ion-button.light-bg-button[fill="solid"]::part(native) {
 .disable-pointer{
   pointer-events: none;
 }
+
+
+.error {
+  color: var(--ion-color-danger) !important;
+}
