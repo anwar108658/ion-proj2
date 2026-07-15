@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { GoogleSignIn } from '@capawesome/capacitor-google-sign-in';
-import { Task } from '../task/task';
 
 @Injectable({ providedIn: 'root' })
 export class DriveBackupService {
@@ -9,43 +8,10 @@ export class DriveBackupService {
   private readonly TODO_KEY = 'task';
   private readonly BACKUP_FILE_NAME = 'app_backup_data.json';
   private accessToken: string | null = null;
-  private readonly TOKEN_KEY = 'google_drive_token';
 
-  constructor(private taskService: Task) {
+  constructor() {
+    // Initialize Google Sign-In
     this.initializeGoogleSignIn();
-    this.loadSavedTokenOnStartup();
-  }
-
-  private async loadSavedTokenOnStartup(): Promise<void> {
-    try {
-      const result = await Preferences.get({ key: this.TOKEN_KEY });
-      if (result.value) {
-        this.accessToken = result.value;
-        console.log('🔑 Previous session token loaded');
-      }
-    } catch (error) {
-      console.log('No saved token found');
-    }
-  }
-
-  private async saveTokenToStorage(token: string): Promise<void> {
-    await Preferences.set({ key: this.TOKEN_KEY, value: token });
-    console.log('💾 Token saved to storage');
-  }
-
-  private async clearTokenFromStorage(): Promise<void> {
-    await Preferences.remove({ key: this.TOKEN_KEY });
-    console.log('🗑️ Token removed from storage');
-  }
-
-  // 🔥 NEW: Simple helper to read token from storage
-  private async loadTokenFromStorage(): Promise<string | null> {
-    try {
-      const result = await Preferences.get({ key: this.TOKEN_KEY });
-      return result.value || null;
-    } catch (error) {
-      return null;
-    }
   }
 
   private initializeGoogleSignIn() {
@@ -55,46 +21,38 @@ export class DriveBackupService {
     });
   }
 
-  // 🔥 FIXED: Get a valid access token SILENTLY when possible
+  // 1. Get a valid access token SILENTLY when possible
   private async getAccessToken(): Promise<string> {
-    // Step 1: Check memory cache
+    // If we already have a token, return it
     if (this.accessToken) {
-      console.log('✅ Using token from memory');
       return this.accessToken;
     }
 
-    // Step 2: Check persistent storage (app restart survive!)
-    const savedToken = await this.loadTokenFromStorage();
-    if (savedToken) {
-      console.log('✅ Using token from storage — NO POPUP!');
-      this.accessToken = savedToken;
-      return savedToken;
-    }
-
-    // Step 3: Only if no token anywhere, show login popup ONCE
     try {
+      // Try to sign in silently first
       const result = await GoogleSignIn.signIn();
       
       if (result?.accessToken) {
         this.accessToken = result.accessToken;
-        await this.saveTokenToStorage(result.accessToken);
-        console.log('✅ Fresh token saved');
         return this.accessToken;
       }
       
       throw new Error('No access token available');
     } catch (error: any) {
+      // If silent sign-in fails, we need to show the sign-in UI
       if (error.message === 'No access token available' || 
           error.message?.includes('canceled')) {
-        throw new Error('Please sign in to backup your data.');
+        throw new Error('Please sign in to backup your data. The sign-in was cancelled or failed.');
       }
       throw error;
     }
   }
 
-  
+
+  // 3. EXPORT BACKUP TO HIDDEN APP DATA FOLDER
   async exportBackupToDrive(): Promise<void> {
     try {
+      // Build the backup JSON
       const auth = await Preferences.get({ key: this.AUTH_KEY });
       const todos = await Preferences.get({ key: this.TODO_KEY });
       
@@ -107,12 +65,14 @@ export class DriveBackupService {
 
       const accessToken = await this.getAccessToken();
 
+      // Search for an existing backup file in the app data folder
       const fileId = await this.findAppDataFile(accessToken);
 
+      // Prepare multipart metadata – "parents" puts it in the hidden app folder
       const metadata = {
         name: this.BACKUP_FILE_NAME,
         mimeType: 'application/json',
-        parents: ['appDataFolder']
+        parents: ['appDataFolder']  // Hidden folder, invisible to user
       };
 
       const boundary = 'foo_bar_baz_boundary';
@@ -125,6 +85,7 @@ export class DriveBackupService {
         `${JSON.stringify(backupData)}\r\n` +
         `--${boundary}--`;
 
+      // If file exists, update it; otherwise create new
       const url = fileId
         ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
         : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
@@ -142,25 +103,26 @@ export class DriveBackupService {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Upload failed:', response.status, errorText);
+        console.error('Upload failed with status:', response.status, errorText);
         
+        // If token expired, clear it and retry once
         if (response.status === 401) {
           this.accessToken = null;
-          await this.clearTokenFromStorage();
           await GoogleSignIn.signOut();
-          return this.exportBackupToDrive();
+          return this.exportBackupToDrive(); // Retry once with fresh sign-in
         }
         
         throw new Error(`Drive upload failed: ${response.status}`);
       }
 
-      console.log('✅ Backup successfully stored');
+      console.log('✅ Backup successfully stored in Google Drive app folder');
     } catch (error) {
       console.error('Backup failed:', error);
-      throw error;
+      throw error; // Let the UI handle the error display
     }
   }
 
+  // Helper: Find existing backup file inside the app data folder
   private async findAppDataFile(token: string): Promise<string | null> {
     try {
       const query = encodeURIComponent(
@@ -182,10 +144,12 @@ export class DriveBackupService {
     }
   }
 
+  // 4. IMPORT BACKUP FROM GOOGLE DRIVE
   async importBackupFromDrive(): Promise<any> {
     try {
       const accessToken = await this.getAccessToken();
       
+      // 🔥 FIX: Directly list ALL files in appDataFolder
       const listUrl = 'https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=files(id,name,size)&orderBy=createdTime desc';
       
       const listResponse = await fetch(listUrl, {
@@ -199,12 +163,16 @@ export class DriveBackupService {
       const listData = await listResponse.json();
       console.log('📂 All files in appDataFolder:', listData);
       
+      // Get the first file (most recent backup)
       const fileId = listData.files?.[0]?.id;
       
+      console.log(fileId, "ye backup he ");
+      
       if (!fileId) {
-        throw new Error('No backup file found.');
+        throw new Error('No backup file found in Google Drive. Please create a backup first.');
       }
 
+      // Download the file
       const downloadUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`;
       
       const response = await fetch(downloadUrl, {
@@ -212,15 +180,17 @@ export class DriveBackupService {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to download: ${response.status}`);
+        throw new Error(`Failed to download backup: ${response.status}`);
       }
 
       const backup = await response.json();
       
+      // Validate backup structure
       if (!backup || backup.version !== 1 || !Array.isArray(backup.todos)) {
-        throw new Error('Invalid backup format.');
+        throw new Error('Invalid backup file format.');
       }
 
+      // Restore the data
       if (backup.auth) {
         await Preferences.set({ key: this.AUTH_KEY, value: JSON.stringify(backup.auth) });
       }
@@ -228,9 +198,9 @@ export class DriveBackupService {
       if (backup.todos) {
         await Preferences.set({ key: this.TODO_KEY, value: JSON.stringify(backup.todos) });
       }
-      this.taskService.checkName();
-      console.log('✅ Data restored');
-      alert(backup.todos.length > 0 ? `Restored ${backup.todos.length} tasks!` : 'No tasks found.');
+
+      console.log('✅ Data successfully restored from Google Drive');
+      alert(backup.todos.length > 0 ? `Data restored successfully! (${backup.todos.length} tasks)` : 'No tasks found in backup.');
       return backup;
 
     } catch (error) {
